@@ -983,9 +983,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 209
-        y: 451
+        y: 437
         width: 15
-        height: 5
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -995,48 +995,6 @@ TextureImporter:
       bones: []
       spriteID: 2b90a2214dd96ce42b021104177cd79a
       internalID: 21300046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Village Props Road Sign Text B
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 444
-        width: 15
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 648ae28acea5a264190759e50ba343f5
-      internalID: 21300048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Village Props Road Sign Text C
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 437
-        width: 15
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3aebb6efc17c9c42925a52ec07894fe
-      internalID: 21300050
       vertices: []
       indices: 
       edges: []
@@ -1658,8 +1616,8 @@ TextureImporter:
         y: 64
         width: 57
         height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1847,8 +1805,8 @@ TextureImporter:
         y: 317
         width: 61
         height: 23
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3255,7 +3213,7 @@ TextureImporter:
         width: 27
         height: 59
       alignment: 9
-      pivot: {x: 0.4197964, y: 0}
+      pivot: {x: 0.45383707, y: 0.28038794}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3276,7 +3234,7 @@ TextureImporter:
         width: 26
         height: 63
       alignment: 9
-      pivot: {x: 0.5964696, y: 0}
+      pivot: {x: 0.5964719, y: 0.27717537}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
