@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &946506159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +240,22 @@ MonoBehaviour:
   weight: 3000
   brand: BMW
   skywindow: 1
+  Color1: {r: 0, g: 0, b: 0, a: 0}
+  ColorRed: {r: 1, g: 0, b: 0, a: 1}
+  ColorBlue: {r: 0, g: 0, b: 1, a: 1}
+  ColorAlpha: {r: 0, g: 1, b: 0, a: 0.5}
+  v2: {x: 0, y: 0}
+  v2zero: {x: 0, y: 0}
+  v2one: {x: 1, y: 1}
+  v2custom: {x: 1, y: 2}
+  v3custom: {x: 1, y: 2, z: 3}
+  v4custom: {x: 1, y: 2, z: 3, w: 4}
+  kc: 0
+  kcW: 119
+  caroil: {fileID: 0}
+  carbox: {fileID: 0}
+  trans: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!212 &946506160
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -335,10 +351,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41f29f33c53ae1408bb9a5364e49f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cc: 1500
-  weight: 3000
+  cc: 1000
+  weight: 3
   brand: BMW
   skywindow: 1
+  Color1: {r: 0, g: 0, b: 0, a: 0}
+  ColorRed: {r: 1, g: 0, b: 0, a: 1}
+  ColorBlue: {r: 0, g: 0, b: 1, a: 1}
+  ColorAlpha: {r: 0, g: 1, b: 0, a: 0.5}
+  v2: {x: 0, y: 0}
+  v2zero: {x: 0, y: 0}
+  v2one: {x: 1, y: 1}
+  v2custom: {x: 1, y: 2}
+  v3custom: {x: 1, y: 2, z: 3}
+  v4custom: {x: 1, y: 2, z: 3, w: 4}
+  kc: 0
+  kcW: 119
+  caroil: {fileID: 0}
+  carbox: {fileID: 0}
+  trans: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!212 &1762762468
 SpriteRenderer:
   m_ObjectHideFlags: 0

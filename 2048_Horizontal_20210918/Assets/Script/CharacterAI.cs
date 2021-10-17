@@ -88,6 +88,7 @@ public class CharacterAI : MonoBehaviour
         //MoveInput();
         Jump();
         Climb();
+        TextBox();
     }
 
     private void FixedUpdate()
@@ -117,7 +118,7 @@ public class CharacterAI : MonoBehaviour
     private void Move()
     {
         
-        rig.velocity = new Vector2(/*h **/ speed * Time.fixedDeltaTime, rig.velocity.y);
+        rig.velocity = new Vector2(h * speed * Time.fixedDeltaTime, rig.velocity.y);
         if (h != 0f) {
             ani.SetBool("BRun", true);
         } else if(h == 0f && ani.GetBool("BRun")){
@@ -158,7 +159,15 @@ public class CharacterAI : MonoBehaviour
             rig.AddForce(new Vector2(0, jump));
         }
     }
-
+    private void TextBox()
+    {
+        Collider2D hitbox = Physics2D.OverlapCircle(this.transform.position + v2GroundOffset, radiusGround, 1 << 9);
+        bool hitted = hitbox && hitbox.name.Contains("對話觸發");
+        if (hitted && h != 0f)
+        {
+            h = 0f;
+        }
+    }
     /// <summary>
     /// 吃東西
     /// </summary>
