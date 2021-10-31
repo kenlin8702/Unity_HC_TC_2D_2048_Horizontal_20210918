@@ -17,7 +17,16 @@ public class LearnMethod : MonoBehaviour
         Drive90();
         Drive150();
         //   ま计
+        Drive(200,"臚臚臚");
         Drive(200);
+        Drive(300, effect: "ホ繷");
+
+        int t = Ten();
+
+        print("跑计计:" + t);
+        print("ぃㄏノ跑计ㄓよ猭:" + Ten());
+        int damage = Damage(90, 30);
+        print("90ю阑搭30ň縨单" + damage);
     }
 
     //购惠―
@@ -33,8 +42,18 @@ public class LearnMethod : MonoBehaviour
         print("");
     }
     //把计 把计摸
-    public void Drive(int speed) {
+    public void Drive(int speed,string sound = "",string effect = "η剐") {
         print("硉:" + speed);
-        print("");
+        print(":" + sound);
+        print("疭:" + effect);
+    }
+
+    public int Ten() {
+        return 10;
+    }
+
+    public int Damage(int attack,int defense) {
+
+        return attack - defense;
     }
 }
