@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class LearnEnumeration : MonoBehaviour
 {
 
+    [Flags]
     public enum EnemyState {
         None = 0b_0000_0000,
         Idle = 0b_0000_0001,
@@ -19,7 +21,7 @@ public class LearnEnumeration : MonoBehaviour
         print(state);//0·|¦L¥Xidle
     }
     private void Update() {
-        print(state.ToString());
+        print((int)state);
         switch (state) {
             case EnemyState.None:
                 print("µL");
