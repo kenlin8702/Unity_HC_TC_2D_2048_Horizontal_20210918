@@ -5,6 +5,7 @@ using UnityEngine;
 public class LearnIf : MonoBehaviour
 {
     public bool Opendoor;
+    public int score;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,12 @@ public class LearnIf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (score >= 60) {
+            print("及格");
+        }else if(score >= 40) {
+            print("不及格");
+        } else {
+            print("死當");
+        }
     }
 }
