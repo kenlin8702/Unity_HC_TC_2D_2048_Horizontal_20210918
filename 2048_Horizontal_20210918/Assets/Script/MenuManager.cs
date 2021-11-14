@@ -12,10 +12,15 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// 開始遊戲
     /// </summary>
-    public void StartGame() {
+    public void StartGame(float delay) {
         //載入場景
+        Invoke("DelayStartGame", delay);
+    }
+
+    private void DelayStartGame() {
         SceneManager.LoadScene("遊戲畫面");
     }
+
     /// <summary>
     /// 設定遊戲
     /// </summary>
@@ -28,7 +33,11 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// 離開遊戲
     /// </summary>
-    public void QuitButton() {
+    public void QuitButton(float delay) {
+
+        Invoke("DelayQuitButton", delay);
+    }
+    public void DelayQuitButton() {
         Application.Quit();
 
         print("離開遊戲");
