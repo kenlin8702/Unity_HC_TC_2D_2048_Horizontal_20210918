@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 /// <summary>
 /// 認識二維陣列
 /// </summary>
@@ -16,6 +17,7 @@ public class Learn2DArray : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+        #region 存取
         print(blocks[0, 0]);
 
         print("二維陣列第0欄第一列:" + blocks[1, 0]);
@@ -34,6 +36,29 @@ public class Learn2DArray : MonoBehaviour {
             result += "\n";
         }
         print(result);
+        #endregion
+
+        #region 資料搜尋
+        var NumberGreaterTen =
+                from int n in numbers
+                where n >= 10
+                select n;
+        #endregion
+
+        print("大於10的數字總共有" + NumberGreaterTen.Count() + "筆");
+
+        for(int i= 0;i < NumberGreaterTen.Count(); i++) {
+            print(">= 10 的數字:"+NumberGreaterTen.ToArray()[i]);
+        }
+
+        var nopass =
+                from int n in scores
+                where n < 60
+                orderby n descending
+                select n;
+        for(int i= 0;i < nopass.Count(); i++) {
+            print("不及格的分數有:" + nopass.ToArray()[i]);
+        }
     }
 
     // Update is called once per frame
