@@ -142,7 +142,7 @@ public class CharacterAI : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(this.transform.position + v2GroundOffset, radiusGround, 1 << 8);
         if (!isGrounded && hit) aud.PlayOneShot(soundLand, Random.Range(0.8f, 1.2f));
         isGrounded = hit && hit.name.Contains("地板");
-        Debug.Log(isGrounded);
+        //Debug.Log(isGrounded);
         ani.SetBool("BJump", !isGrounded);
     }
 
