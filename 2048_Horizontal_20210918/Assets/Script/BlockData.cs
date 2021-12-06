@@ -7,7 +7,6 @@ public class BlockData {
     public Vector2 v2Position;
     public Vector2Int v2Index;
     public int number;
-    
     public BlockData() {
 
     }

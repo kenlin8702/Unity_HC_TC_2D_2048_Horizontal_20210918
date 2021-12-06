@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.Events;//引用Unity 事件命名空間
 
 public class System2048 : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class System2048 : MonoBehaviour
     public GameObject goblocks;
     [Header("畫布")]
     public Transform v2Canvas;
+    [Header("數字相同合併事件")]
+    public UnityEvent onMerging;
 
     [SerializeField]
     private Direction dir;
@@ -22,7 +24,7 @@ public class System2048 : MonoBehaviour
 
     private bool isMouseDown;
 
-    BlockData[,] blocks = new BlockData[1, 4];
+    BlockData[,] blocks = new BlockData[4, 4];
     // Start is called before the first frame update
     void Start()
     {
@@ -106,20 +108,46 @@ public class System2048 : MonoBehaviour
         }
     }
     void checkAndMoveBlock() {
+        BlockData blockOriginal = new BlockData();
+        BlockData blockCheck = new BlockData();
+        bool canMove = false;
+        bool canMerge = false;
+        bool moveFinally = false;
         switch (dir) {
             case Direction.Right:
-                break;
-            case Direction.Left:
-                bool moveFinally = false;
                 for (int i = 0; i < blocks.GetLength(0); i++) {
-                    for(int j = 0;j < blocks.GetLength(1); j++) {
-
-                        BlockData blockOriginal = new BlockData();
-                        BlockData blockCheck = new BlockData();
-                        bool canMove = false;
-                        bool canMerge = false;
+                    for (int j = blocks.GetLength(1) - 2; j >= 0; j--) {
                         blockOriginal = blocks[i, j];
                         if (blockOriginal.number == 0) continue;
+
+                        for (int k = j + 1; k < blocks.GetLength(1); k++) {
+                            
+                            if (blocks[i, k].number == 0) {
+                                blockCheck = blocks[i, k];
+                                canMove = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number == blocks[i, k].number) {
+                                blockCheck = blocks[i, k];
+                                canMove = true;
+                                canMerge = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number != blocks[i, k].number && blocks[i,k].number != 0) {
+                                break;
+                            }
+                        }
+                        if (canMove) {
+                            MoveBlock(blockOriginal, blockCheck, canMerge);
+                            canMove = false;
+                            canMerge = false;
+                        }
+                    }
+                }
+                break;
+            case Direction.Left:
+                for (int i = 0; i < blocks.GetLength(0); i++) {
+                    for (int j = 1;j < blocks.GetLength(1); j++) {
+                        blockOriginal = blocks[i, j];
+                        if (blockOriginal.number == 0 ) continue;
                         
                         for(int k = j - 1; k >= 0; k--) {
                             if (blocks[i,k].number == 0) {
@@ -131,36 +159,96 @@ public class System2048 : MonoBehaviour
                                 canMove = true;
                                 canMerge = true;
                                 moveFinally = true;
+                            } else if (blockOriginal.number != blocks[i, k].number && blocks[i, k].number != 0) {
+                                break;
                             }
                         }
                         if (canMove) {
-                            blockOriginal.goBlocks.transform.position = blockCheck.v2Position;
-
-
-                            if (canMerge) {
-                                blockCheck.number = blockCheck.number * 2 ;
-
-                                Destroy(blockOriginal.goBlocks);
-                                blockCheck.goBlocks.transform.Find("數字").GetComponent<Text>().text = blockCheck.number.ToString();
-                            } else {
-                                blockCheck.number = blockOriginal.number;
-                                blockCheck.goBlocks = blockOriginal.goBlocks;
-                            }
-                            blockOriginal.number = 0;
-                            blockOriginal.goBlocks = null;
+                            MoveBlock(blockOriginal, blockCheck, canMerge);
+                            canMove = false;
+                            canMerge = false;
                         }
                     }
                 }
-                if (moveFinally) GenerateNumber(); //如果有移動才生成。
-                printData();
                 break;
             case Direction.Up:
+                for (int i = 0; i < blocks.GetLength(1); i++) {
+                    for (int j = 1; j < blocks.GetLength(0); j++) {
+                        blockOriginal = blocks[j, i];
+                        if (blockOriginal.number == 0) continue;
+
+                        for (int k = j - 1; k >= 0; k--) {
+                            if (blocks[k, i].number == 0) {
+                                blockCheck = blocks[k, i];
+                                canMove = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number == blocks[k, i].number) {
+                                blockCheck = blocks[k, i];
+                                canMove = true;
+                                canMerge = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number != blocks[k, i].number && blocks[k,i].number != 0) {
+                                break;
+                            }
+                        }
+                        if (canMove) {
+                            MoveBlock(blockOriginal, blockCheck, canMerge);
+                            canMove = false;
+                            canMerge = false;
+                        }
+                    }
+                }
                 break;
             case Direction.Down:
+                for (int i = 0; i < blocks.GetLength(1); i++) {
+                    for (int j = blocks.GetLength(0) - 2; j >= 0; j--) {
+                        blockOriginal = blocks[j, i];
+                        if (blockOriginal.number == 0) continue;
+
+                        for (int k = j + 1; k < blocks.GetLength(0); k++) {
+
+                            if (blocks[k, i].number == 0) {
+                                blockCheck = blocks[k, i];
+                                canMove = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number == blocks[k, i].number) {
+                                blockCheck = blocks[k, i];
+                                canMove = true;
+                                canMerge = true;
+                                moveFinally = true;
+                            } else if (blockOriginal.number != blocks[k, i].number && blocks[k,i].number != 0) {
+                                break;
+                            }
+                        }
+                        if (canMove) {
+                            MoveBlock(blockOriginal, blockCheck, canMerge);
+                            canMove = false;
+                            canMerge = false;
+                        }
+                    }
+                }
                 break;
         }
+        if (moveFinally) GenerateNumber(); //如果有移動才生成。
+        printData();
     }
+    private void MoveBlock(BlockData blockOriginal,BlockData blockCheck, bool canMerge) {
+        blockOriginal.goBlocks.transform.position = blockCheck.v2Position;
 
+        if (canMerge) {
+            blockCheck.number = blockCheck.number * 2;
+
+            Destroy(blockOriginal.goBlocks);
+            blockCheck.goBlocks.transform.Find("數字").GetComponent<Text>().text = blockCheck.number.ToString();
+
+            onMerging.Invoke();
+        } else {
+            blockCheck.number = blockOriginal.number;
+            blockCheck.goBlocks = blockOriginal.goBlocks;
+        }
+        blockOriginal.number = 0;
+        blockOriginal.goBlocks = null;
+    }
     void printData() {
         string result = "";
         for (int i = 0; i < blocks.GetLength(0); i++) {
@@ -171,9 +259,7 @@ public class System2048 : MonoBehaviour
         }
         Debug.Log(result);
     }
-
     void GenerateNumber() {
-
         var equalZero =
             from BlockData result in blocks
             where result.number == 0
