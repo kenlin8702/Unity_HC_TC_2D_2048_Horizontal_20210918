@@ -16,7 +16,8 @@ public class System2048 : MonoBehaviour
 
     [SerializeField]
     private Direction dir;
-
+    [SerializeField]
+    private StateTurn stateTurn;
 
     private Vector3 downPos;
 
@@ -36,7 +37,7 @@ public class System2048 : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        checkDirection();
+        if(stateTurn == StateTurn.My) checkDirection();
     }
     void Initialize() {
         for(int i= 0;i < blocks.GetLength(0); i++) {
@@ -107,30 +108,36 @@ public class System2048 : MonoBehaviour
             checkAndMoveBlock();
         }
     }
+
+    [Header("敵人攻擊事件")]
+    public UnityEvent onEnemyTurn;
     void checkAndMoveBlock() {
         BlockData blockOriginal = new BlockData();
         BlockData blockCheck = new BlockData();
         bool canMove = false;
         bool canMerge = false;
         bool moveFinally = false;
+        int sameNumberCount = 0;
         switch (dir) {
             case Direction.Right:
                 for (int i = 0; i < blocks.GetLength(0); i++) {
+                    sameNumberCount = 0;
                     for (int j = blocks.GetLength(1) - 2; j >= 0; j--) {
                         blockOriginal = blocks[i, j];
                         if (blockOriginal.number == 0) continue;
 
-                        for (int k = j + 1; k < blocks.GetLength(1); k++) {
+                        for (int k = j + 1; k < blocks.GetLength(1) - sameNumberCount; k++) {
                             
                             if (blocks[i, k].number == 0) {
                                 blockCheck = blocks[i, k];
                                 canMove = true;
-                                moveFinally = true;
+                                moveFinally = true;  
                             } else if (blockOriginal.number == blocks[i, k].number) {
                                 blockCheck = blocks[i, k];
                                 canMove = true;
                                 canMerge = true;
                                 moveFinally = true;
+                                sameNumberCount++;
                             } else if (blockOriginal.number != blocks[i, k].number && blocks[i,k].number != 0) {
                                 break;
                             }
@@ -145,11 +152,12 @@ public class System2048 : MonoBehaviour
                 break;
             case Direction.Left:
                 for (int i = 0; i < blocks.GetLength(0); i++) {
+                    sameNumberCount = 0;
                     for (int j = 1;j < blocks.GetLength(1); j++) {
                         blockOriginal = blocks[i, j];
                         if (blockOriginal.number == 0 ) continue;
                         
-                        for(int k = j - 1; k >= 0; k--) {
+                        for(int k = j - 1; k >= 0 +sameNumberCount; k--) {
                             if (blocks[i,k].number == 0) {
                                 blockCheck = blocks[i, k];
                                 canMove = true;
@@ -159,6 +167,7 @@ public class System2048 : MonoBehaviour
                                 canMove = true;
                                 canMerge = true;
                                 moveFinally = true;
+                                sameNumberCount++;
                             } else if (blockOriginal.number != blocks[i, k].number && blocks[i, k].number != 0) {
                                 break;
                             }
@@ -173,11 +182,12 @@ public class System2048 : MonoBehaviour
                 break;
             case Direction.Up:
                 for (int i = 0; i < blocks.GetLength(1); i++) {
+                    sameNumberCount = 0;
                     for (int j = 1; j < blocks.GetLength(0); j++) {
                         blockOriginal = blocks[j, i];
                         if (blockOriginal.number == 0) continue;
 
-                        for (int k = j - 1; k >= 0; k--) {
+                        for (int k = j - 1; k >= 0 +sameNumberCount; k--) {
                             if (blocks[k, i].number == 0) {
                                 blockCheck = blocks[k, i];
                                 canMove = true;
@@ -187,6 +197,7 @@ public class System2048 : MonoBehaviour
                                 canMove = true;
                                 canMerge = true;
                                 moveFinally = true;
+                                sameNumberCount++;
                             } else if (blockOriginal.number != blocks[k, i].number && blocks[k,i].number != 0) {
                                 break;
                             }
@@ -201,11 +212,12 @@ public class System2048 : MonoBehaviour
                 break;
             case Direction.Down:
                 for (int i = 0; i < blocks.GetLength(1); i++) {
+                    sameNumberCount = 0;
                     for (int j = blocks.GetLength(0) - 2; j >= 0; j--) {
                         blockOriginal = blocks[j, i];
                         if (blockOriginal.number == 0) continue;
 
-                        for (int k = j + 1; k < blocks.GetLength(0); k++) {
+                        for (int k = j + 1; k < blocks.GetLength(0) - sameNumberCount; k++) {
 
                             if (blocks[k, i].number == 0) {
                                 blockCheck = blocks[k, i];
@@ -216,6 +228,7 @@ public class System2048 : MonoBehaviour
                                 canMove = true;
                                 canMerge = true;
                                 moveFinally = true;
+                                sameNumberCount++;
                             } else if (blockOriginal.number != blocks[k, i].number && blocks[k,i].number != 0) {
                                 break;
                             }
@@ -229,7 +242,10 @@ public class System2048 : MonoBehaviour
                 }
                 break;
         }
-        if (moveFinally) GenerateNumber(); //如果有移動才生成。
+        if (moveFinally) {
+            stateTurn = StateTurn.Enemy;
+            GenerateNumber(); //如果有移動才生成。
+        }
         printData();
     }
     private void MoveBlock(BlockData blockOriginal,BlockData blockCheck, bool canMerge) {
@@ -288,4 +304,8 @@ public class System2048 : MonoBehaviour
 }
 public enum Direction {
     None, Right, Left, Up, Down
+}
+
+public enum StateTurn {
+    My,Enemy
 }

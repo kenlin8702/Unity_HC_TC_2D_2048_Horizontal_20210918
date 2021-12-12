@@ -528,7 +528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192396321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.39, y: 1, z: 0.27550548}
+  m_LocalPosition: {x: 2.2, y: 1, z: 0.27550548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547460875}
@@ -11577,11 +11577,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1547460872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a00f7a9401d9144297632f065e48deb, type: 3}
+  m_Script: {fileID: 11500000, guid: c46c417dc20d8a94c8990e4467303f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 10
+  attack: 50
   goTarget: {fileID: 2115802332}
+  TextAttack: {fileID: 1315658407}
+  positionSpawn: {fileID: 192396322}
+  goAttackParticle: {fileID: 275323038676652868, guid: 1212fc4106791984c86a1931199235bf, type: 3}
+  speed: 500
 --- !u!1 &1560177812
 GameObject:
   m_ObjectHideFlags: 0
@@ -11903,7 +11907,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1547460880}
-        m_TargetAssemblyTypeName: AttackSystem, Assembly-CSharp
+        m_TargetAssemblyTypeName: AttackSystemFar, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
@@ -11915,6 +11919,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dir: 0
+  stateTurn: 0
+  onEnemyTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1617638218
 Transform:
   m_ObjectHideFlags: 0
@@ -12907,9 +12915,13 @@ GameObject:
   - component: {fileID: 2115802335}
   - component: {fileID: 2115802334}
   - component: {fileID: 2115802333}
+  - component: {fileID: 2115802336}
+  - component: {fileID: 2115802337}
+  - component: {fileID: 2115802338}
+  - component: {fileID: 2115802339}
   m_Layer: 0
   m_Name: "\u9AB7\u9ACF"
-  m_TagString: Untagged
+  m_TagString: "\u6575\u4EBA"
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12998,6 +13010,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2115802336
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115802332}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &2115802337
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115802332}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.23425674, y: -0.21296096}
+  m_Size: {x: 1.0425911, y: 1.5740781}
+  m_Direction: 0
+--- !u!114 &2115802338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115802332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc0909f8e9c6a143a3006ee36a08312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  textHP: {fileID: 1798517940}
+  imgHP: {fileID: 1314871378}
+  imgSP: {fileID: 1979764121}
+  tagDamageObject: "\u9583\u96FB\u7403"
+  parameterDamage: TrHit
+  parameterDead: TrDeath
+--- !u!114 &2115802339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115802332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a00f7a9401d9144297632f065e48deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 35
+  goTarget: {fileID: 1547460872}
+  TextAttack: {fileID: 1690115874}
 --- !u!1001 &2144537214
 PrefabInstance:
   m_ObjectHideFlags: 0
